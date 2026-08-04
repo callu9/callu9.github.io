@@ -20,4 +20,31 @@ describe("resolveBlogPost", () => {
     expect(post.date).toBeUndefined();
     expect(post.readingTime).toBeUndefined();
   });
+
+  it("prefers non-empty Markdown frontmatter", () => {
+    const post = resolveBlogPost(
+      {
+        path: "topic/post",
+        frontmatter: {
+          title: "Markdown title",
+          description: "Markdown description",
+          date: "2026-08-05",
+        },
+        html: "<p>Body</p>",
+      },
+      {
+        path: "topic/post",
+        title: "Configured title",
+        description: "Configured description",
+        category: "React",
+      },
+    );
+
+    expect(post).toMatchObject({
+      title: "Markdown title",
+      description: "Markdown description",
+      date: "2026-08-05",
+    });
+    expect(post.readingTime).toBeUndefined();
+  });
 });

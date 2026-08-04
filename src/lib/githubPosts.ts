@@ -7,6 +7,21 @@ const REPO = "frontend-study"; // target repo name
 const BRANCH = "main"; // branch to read from
 const GITHUB_API = "https://api.github.com";
 
+export type BlogFrontmatter = {
+  title?: string;
+  description?: string;
+  date?: string;
+  readingTime?: number;
+};
+
+export type GitHubPost = {
+  slug: string;
+  path: string;
+  frontmatter: BlogFrontmatter;
+  html: string;
+  raw: string;
+};
+
 function getHeaders() {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github.v3+json",
@@ -158,7 +173,7 @@ function rawUrlForPath(path: string) {
   return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}`;
 }
 
-export async function getAllPostsFromGitHub() {
+export async function getAllPostsFromGitHub(): Promise<GitHubPost[]> {
   let paths: string[] = [];
   try {
     paths = await listMarkdownPathsRecursive();
@@ -167,13 +182,7 @@ export async function getAllPostsFromGitHub() {
     return [];
   }
 
-  const posts: Array<{
-    slug: string;
-    path: string;
-    frontmatter: any;
-    html: string;
-    raw: string;
-  }> = [];
+  const posts: GitHubPost[] = [];
 
   // Fetch files one-by-one with per-file error handling so a single
   // bad/missing/temporarily-failing file doesn't cause the whole page
@@ -187,7 +196,15 @@ export async function getAllPostsFromGitHub() {
         continue;
       }
       const raw = await res.text();
-      const { data: frontmatter, content } = matter(raw);
+      const { data, content } = matter(raw);
+      const frontmatter: BlogFrontmatter = {
+        title: typeof data.title === "string" ? data.title : undefined,
+        description:
+          typeof data.description === "string" ? data.description : undefined,
+        date: typeof data.date === "string" ? data.date : undefined,
+        readingTime:
+          typeof data.readingTime === "number" ? data.readingTime : undefined,
+      };
       const htmlContent = await mdToHtml(content);
       const slug = p.replace(/\.mdx?$/, "").toLowerCase();
       posts.push({ slug, path: p, frontmatter, html: htmlContent, raw });
