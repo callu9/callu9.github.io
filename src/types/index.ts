@@ -1,20 +1,3 @@
-export interface Project {
-	id: string;
-	title: string;
-	description: string;
-	longDescription: string;
-	image: string;
-	technologies: string[];
-	links: {
-		github?: string;
-		live?: string;
-		blog?: string;
-	};
-	startDate: string;
-	endDate: string;
-	featured: boolean;
-}
-
 export interface Review {
 	id: string;
 	name: string;

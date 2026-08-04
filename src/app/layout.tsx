@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "포트폴리오 | 프론트엔드 개발자",
   description:
-    "프론트엔드 개발자의 통합 포트폴리오 사이트입니다. 경력, 프로젝트, 리뷰, 블로그를 확인하세요.",
+    "프론트엔드 개발자의 경력, 리뷰, 블로그를 소개하는 포트폴리오 사이트입니다.",
   icons: {
     icon: "👨‍💻",
   },
