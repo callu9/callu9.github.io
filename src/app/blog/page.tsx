@@ -7,6 +7,9 @@ import { createFallbackBlogPost, resolveBlogPost } from "@/lib/blogPosts";
 export const metadata: Metadata = {
   title: "개발 블로그 | 포트폴리오",
   description: "개발하면서 배운 것들과 인사이트를 공유합니다.",
+  alternates: {
+    canonical: "/blog/",
+  },
 };
 
 export default async function BlogPage() {

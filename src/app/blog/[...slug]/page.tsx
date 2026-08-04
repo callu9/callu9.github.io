@@ -61,6 +61,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post?.title || "포스트"} | 개발 블로그`,
     description: post?.description || "",
+    alternates: {
+      canonical: `/blog/${pathWithoutExt}/`,
+    },
   };
 }
 
