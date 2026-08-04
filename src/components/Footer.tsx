@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import { navigationLinks } from "@/data/navigation";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -13,7 +15,7 @@ const Footer: React.FC = () => {
               Portfolio
             </h3>
             <p className="text-text-secondary text-sm">
-              Lee Sujeong (Frontend Developer) 포트폴리오입니다.
+              프론트엔드 개발자 Lee Sujeong의 포트폴리오입니다.
             </p>
           </div>
 
@@ -21,14 +23,14 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-text-primary mb-4 font-semibold">네비게이션</h4>
             <ul className="space-y-2">
-              {["Home", "Projects", "Reviews", "Blog"].map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
+              {navigationLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
                     className="text-text-secondary hover:text-secondary-coral text-sm transition-colors"
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
