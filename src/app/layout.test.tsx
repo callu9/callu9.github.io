@@ -12,5 +12,6 @@ describe("RootLayout", () => {
     expect(
       screen.getByRole("link", { name: "본문으로 건너뛰기" }),
     ).toHaveAttribute("href", "#main-content");
+    expect(screen.getByRole("main")).toHaveAttribute("tabindex", "-1");
   });
 });

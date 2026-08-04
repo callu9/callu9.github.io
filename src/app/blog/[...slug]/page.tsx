@@ -18,7 +18,6 @@ async function getResolvedPost(
   pathWithoutExt: string,
 ): Promise<ResolvedBlogPost | null> {
   const config = getBlogConfig(pathWithoutExt);
-  if (!config) return null;
 
   let post: GitHubPost | undefined;
   try {
@@ -31,7 +30,8 @@ async function getResolvedPost(
     console.error("Failed to list markdown paths from GitHub:", error);
   }
 
-  return post ? resolveBlogPost(post, config) : createFallbackBlogPost(config);
+  if (post) return resolveBlogPost(post, config);
+  return config ? createFallbackBlogPost(config) : null;
 }
 
 export async function generateStaticParams() {

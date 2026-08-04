@@ -26,7 +26,7 @@ export default function RootLayout({
           본문으로 건너뛰기
         </a>
         <Navigation />
-        <main id="main-content" className="py-10">
+        <main id="main-content" tabIndex={-1} className="py-10">
           {children}
         </main>
         <Footer />

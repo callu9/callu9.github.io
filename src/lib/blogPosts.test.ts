@@ -47,4 +47,34 @@ describe("resolveBlogPost", () => {
     });
     expect(post.readingTime).toBeUndefined();
   });
+
+  it("keeps unconfigured GitHub posts readable", () => {
+    const post = resolveBlogPost(
+      {
+        path: "topic/unconfigured-post",
+        frontmatter: { title: "GitHub title" },
+        html: "<p>Body</p>",
+      },
+      undefined,
+    );
+
+    expect(post).toMatchObject({
+      title: "GitHub title",
+      category: "개발",
+      featured: false,
+    });
+  });
+
+  it("uses the rendered Markdown heading when no title metadata exists", () => {
+    const post = resolveBlogPost(
+      {
+        path: "topic/unconfigured-post",
+        frontmatter: {},
+        html: "<h1>Readable Markdown heading</h1><p>Body</p>",
+      },
+      undefined,
+    );
+
+    expect(post.title).toBe("Readable Markdown heading");
+  });
 });

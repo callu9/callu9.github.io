@@ -14,15 +14,20 @@ export type ResolvedBlogPost = {
 
 export function resolveBlogPost(
   post: Pick<GitHubPost, "path" | "frontmatter" | "html">,
-  config: BlogConfig,
+  config?: BlogConfig,
 ): ResolvedBlogPost {
+  const heading = post.html
+    .match(/<h1[^>]*>(.*?)<\/h1>/i)?.[1]
+    ?.replace(/<[^>]*>/g, "")
+    .trim();
+
   return {
     path: post.path,
     html: post.html,
-    title: post.frontmatter.title || config.title || post.path,
-    description: post.frontmatter.description || config.description,
-    category: config.category,
-    featured: Boolean(config.featured),
+    title: post.frontmatter.title || config?.title || heading || post.path,
+    description: post.frontmatter.description || config?.description || "",
+    category: config?.category || "개발",
+    featured: Boolean(config?.featured),
     date: post.frontmatter.date || undefined,
     readingTime: post.frontmatter.readingTime || undefined,
   };
