@@ -47,19 +47,21 @@ const Experience: React.FC = () => {
                   <p className="text-text-light text-sm">{exp.period}</p>
 
                   {/* Achievements */}
-                  <ul className="mb-4 space-y-2">
-                    {exp.achievements.map((achievement, i) => (
-                      <li
-                        key={i}
-                        className="text-text-secondary flex gap-2 text-sm"
-                      >
-                        <span className="text-secondary-coral flex-shrink-0">
-                          →
-                        </span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {exp.achievements.length > 0 && (
+                    <ul className="mb-4 space-y-2">
+                      {exp.achievements.map((achievement, i) => (
+                        <li
+                          key={i}
+                          className="text-text-secondary flex gap-2 text-sm"
+                        >
+                          <span className="text-secondary-coral flex-shrink-0">
+                            →
+                          </span>
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                   {/* Skills */}
                   <div className="flex flex-wrap gap-2">

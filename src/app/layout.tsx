@@ -22,8 +22,13 @@ export default function RootLayout({
     <html lang="ko">
       <body className="bg-primary-light text-text-primary">
         <BlurredDots count={12} />
+        <a href="#main-content" className="skip-link">
+          본문으로 건너뛰기
+        </a>
         <Navigation />
-        <main className="py-10">{children}</main>
+        <main id="main-content" className="py-10">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

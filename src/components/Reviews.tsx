@@ -22,7 +22,7 @@ const Reviews: React.FC = () => {
             >
               {/* Review Content */}
               <p className="text-text-secondary mb-6 leading-relaxed italic">
-                "
+                &ldquo;
                 {review.content.split(" ").map((word, idx) =>
                   review.highlights.some((h) => word.includes(h)) ? (
                     <span
@@ -35,7 +35,7 @@ const Reviews: React.FC = () => {
                     <span key={idx}>{word} </span>
                   ),
                 )}
-                "
+                &rdquo;
               </p>
 
               {/* Reviewer Info */}
