@@ -20,9 +20,8 @@ export default async function BlogPage() {
     .map((post) => {
       const pathWithoutExt = post.path.replace(/\.mdx?$/, "");
       const config = getBlogConfig(pathWithoutExt);
-      return config ? resolveBlogPost(post, config) : null;
+      return resolveBlogPost(post, config);
     })
-    .filter((item) => item !== null)
     : getVisibleBlogs().map(createFallbackBlogPost))
     .sort((a, b) => {
       if (a.featured && !b.featured) return -1;
