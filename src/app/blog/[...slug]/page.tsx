@@ -1,12 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPostsFromGitHub } from "@/lib/githubPosts";
+import { getAllPostsFromGitHub, type GitHubPost } from "@/lib/githubPosts";
 import { getBlogConfig, getVisibleBlogs } from "@/data/blogs";
+import {
+  createFallbackBlogPost,
+  resolveBlogPost,
+  type ResolvedBlogPost,
+} from "@/lib/blogPosts";
 
 interface Props {
   params: Promise<{
     slug: string[];
   }>;
+}
+
+async function getResolvedPost(
+  pathWithoutExt: string,
+): Promise<ResolvedBlogPost | null> {
+  const config = getBlogConfig(pathWithoutExt);
+
+  let post: GitHubPost | undefined;
+  try {
+    const posts = await getAllPostsFromGitHub();
+    post = posts.find(
+      (candidate) =>
+        candidate.path.replace(/\.mdx?$/, "") === pathWithoutExt,
+    );
+  } catch (error) {
+    console.error("Failed to list markdown paths from GitHub:", error);
+  }
+
+  if (post) return resolveBlogPost(post, config);
+  return config ? createFallbackBlogPost(config) : null;
 }
 
 export async function generateStaticParams() {
@@ -32,57 +57,20 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const pathWithoutExt = slug.join("/");
-  let post = null as any;
-  try {
-    const posts = await getAllPostsFromGitHub();
-    post = posts.find((p) => p.path.replace(/\.mdx?$/, "") === pathWithoutExt);
-  } catch (err) {
-    console.error("Failed to list markdown paths from GitHub:", err);
-  }
-
-  // If not found from GitHub, fall back to local config for title/description
-  if (!post) {
-    const cfg = getBlogConfig(pathWithoutExt);
-    if (cfg) {
-      return {
-        title: `${cfg.title || "포스트"} | 개발 블로그`,
-        description: cfg.description || "",
-      };
-    }
-  }
+  const post = await getResolvedPost(pathWithoutExt);
   return {
-    title: `${post?.frontmatter?.title || "포스트"} | 개발 블로그`,
-    description: post?.frontmatter?.description || "",
+    title: `${post?.title || "포스트"} | 개발 블로그`,
+    description: post?.description || "",
+    alternates: {
+      canonical: `/blog/${pathWithoutExt}/`,
+    },
   };
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const pathWithoutExt = slug.join("/");
-  let post = null as any;
-  try {
-    const posts = await getAllPostsFromGitHub();
-    post =
-      posts.find((p) => p.path.replace(/\.mdx?$/, "") === pathWithoutExt) ??
-      null;
-  } catch (err) {
-    console.error("Failed to list markdown paths from GitHub:", err);
-  }
-
-  // Fallback: if GitHub data unavailable, check local config to provide at least metadata
-  if (!post) {
-    const cfg = getBlogConfig(pathWithoutExt);
-    if (cfg) {
-      // synthetic minimal post using local config when remote MD is unavailable
-      post = {
-        frontmatter: {
-          title: cfg.title || cfg.path.split("/").pop(),
-          description: cfg.description || "",
-        },
-        html: `<p>원격 저장소에서 포스트 내용을 불러올 수 없습니다. 로컬 메타데이터만 표시됩니다.</p>`,
-      } as any;
-    }
-  }
+  const post = await getResolvedPost(pathWithoutExt);
 
   if (!post) {
     return (
@@ -107,15 +95,15 @@ export default async function BlogPostPage({ params }: Props) {
         <article className="card bg-white/70 p-8 backdrop-blur-sm md:p-12">
           <header className="mb-8">
             <h1 className="text-text-primary mb-4 text-4xl font-bold md:text-5xl">
-              {post.frontmatter?.title}
+              {post.title}
             </h1>
-            <div className="text-text-secondary flex items-center gap-4">
-              <time>{post.frontmatter?.date}</time>
-              <span>•</span>
-              <span>
-                읽기 시간: 약 {post.frontmatter?.readingTime || "-"}분
-              </span>
-            </div>
+            {(post.date || post.readingTime) && (
+              <div className="text-text-secondary flex items-center gap-4">
+                {post.date && <time>{post.date}</time>}
+                {post.date && post.readingTime && <span>•</span>}
+                {post.readingTime && <span>읽기 시간: 약 {post.readingTime}분</span>}
+              </div>
+            )}
           </header>
 
           <div className="prose prose-invert prose-headings:text-text-primary prose-p:text-text-secondary prose-a:text-secondary-coral hover:prose-a:text-secondary-peach prose-code:text-secondary-coral prose-code:bg-secondary-mint/20 prose-code:px-2 prose-code:py-1 prose-code:rounded max-w-none">

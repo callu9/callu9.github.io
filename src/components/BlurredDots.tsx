@@ -2,24 +2,20 @@ import React from "react";
 
 export interface BlurredDotsProps {
 	count?: number;
-	speed?: number;
 }
 
 export const BlurredDots: React.FC<BlurredDotsProps> = ({ count = 8 }) => {
 	const colors = ["dot-mint", "dot-peach", "dot-sage", "dot-coral"];
 
-	const generateDots = () => {
-		return Array.from({ length: count }).map((_, i) => ({
-			id: i,
-			left: Math.random() * 100,
-			top: Math.random() * 100,
-			size: Math.random() * 300 + 200,
-			color: colors[Math.floor(Math.random() * colors.length)],
-			duration: Math.random() * 5 + 15,
-		}));
-	};
-
-	const dots = generateDots();
+	const dots = Array.from({ length: count }, (_, index) => ({
+		id: index,
+		left: (index * 37 + 13) % 100,
+		top: (index * 53 + 7) % 100,
+		size: 200 + ((index * 71) % 300),
+		color: colors[index % colors.length],
+		duration: 15 + ((index * 3) % 5),
+		animationDelay: (index * 7) % 15,
+	}));
 
 	return (
 		<div className="blurred-dots">
@@ -33,7 +29,7 @@ export const BlurredDots: React.FC<BlurredDotsProps> = ({ count = 8 }) => {
 						width: `${dot.size}px`,
 						height: `${dot.size}px`,
 						animation: `float ${dot.duration}s ease-in-out infinite`,
-						animationDelay: `${Math.random() * dot.duration}s`,
+						animationDelay: `${dot.animationDelay}s`,
 					}}
 				/>
 			))}
