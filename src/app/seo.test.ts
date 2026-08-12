@@ -3,13 +3,13 @@ import robots from "./robots";
 import sitemap from "./sitemap";
 
 describe("SEO route metadata", () => {
-  it("publishes the home and blog URLs in the sitemap", () => {
-    expect(sitemap()).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ url: "https://callu9.github.io/" }),
-        expect.objectContaining({ url: "https://callu9.github.io/blog/" }),
-      ]),
-    );
+  it("publishes only the home and approved project URLs in the sitemap", () => {
+    expect(sitemap().map(({ url }) => url)).toEqual([
+      "https://callu9.github.io/",
+      "https://callu9.github.io/projects/work-support-platform/",
+      "https://callu9.github.io/projects/operations-dashboard/",
+      "https://callu9.github.io/projects/collaborative-web-product/",
+    ]);
   });
 
   it("points crawlers to the published sitemap", () => {

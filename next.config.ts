@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
 export default nextConfig;

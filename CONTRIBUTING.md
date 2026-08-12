@@ -13,7 +13,7 @@
 예시:
 
 ```text
-feat/blog-search
+feat/project-details
 fix/mobile-navigation
 refactor/portfolio-cleanup
 docs/contribution-guide
