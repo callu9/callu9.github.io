@@ -1,8 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/3ee86da0fb0f0f44.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
-4:I[97367,["/_next/static/chunks/3ee86da0fb0f0f44.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
-5:"$Sreact.suspense"
-7:I[27201,["/_next/static/chunks/3ee86da0fb0f0f44.js","/_next/static/chunks/247eb132b7f7b574.js"],"IconMark"]
-0:{"buildId":"zkizE9bspPalFbAzzM_bK","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
-3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-6:[["$","title","0",{"children":"포트폴리오 | 프론트엔드 개발자"}],["$","meta","1",{"name":"description","content":"프론트엔드 개발자의 통합 포트폴리오 사이트입니다. 경력, 프로젝트, 리뷰, 블로그를 확인하세요."}],["$","link","2",{"rel":"icon","href":"👨‍💻"}],["$","$L7","3",{}]]
