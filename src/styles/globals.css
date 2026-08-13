@@ -133,13 +133,29 @@ nav {
   font-weight: 650;
 }
 
-nav a {
+nav a,
+.footer-inner a,
+.project-card h3 a,
+.contact-links a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+nav a,
+.footer-inner a {
+  min-width: 2.75rem;
+  justify-content: center;
+}
+
+nav a,
+.project-card h3 a {
   text-decoration: none;
 }
 
 nav a:hover,
 .site-footer a:hover,
-.project-card a:hover {
+.project-card h3 a:hover {
   color: var(--accent);
   text-decoration: underline;
 }
@@ -155,14 +171,21 @@ nav a:hover,
   align-items: end;
 }
 
-.eyebrow,
-.project-label {
+.eyebrow {
   margin-bottom: 0.8rem;
   color: var(--accent-dark);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.project-label {
+  margin-bottom: 0.8rem;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .hero-name {
@@ -355,7 +378,7 @@ nav a:hover,
 
 .project-card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr;
   gap: 2rem;
   align-items: end;
   border-bottom: 1px solid var(--line);
@@ -373,7 +396,7 @@ nav a:hover,
 }
 
 .project-number {
-  grid-row: 1 / 4;
+  grid-row: 1 / 5;
   color: var(--accent);
   font-size: 0.85rem;
   font-weight: 800;
@@ -383,10 +406,32 @@ nav a:hover,
   margin-bottom: 0.6rem;
 }
 
-.project-card a {
+.project-card h3 a {
   color: var(--accent-dark);
   font-weight: 800;
-  white-space: nowrap;
+  white-space: normal;
+}
+
+.project-result {
+  margin-top: 1rem !important;
+}
+
+.project-result strong {
+  display: block;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1rem;
+}
+
+.contact-links a {
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .contact-section {
@@ -601,10 +646,6 @@ figcaption {
     gap: 1.25rem;
   }
 
-  .project-card a {
-    justify-self: start;
-  }
-
   .contact-inner,
   .case-footer {
     align-items: start;
@@ -613,6 +654,10 @@ figcaption {
 }
 
 @media (max-width: 40rem) {
+  .site-header {
+    position: static;
+  }
+
   .shell {
     width: min(100% - 2rem, var(--max-width));
   }

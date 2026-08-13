@@ -34,27 +34,46 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="strengths" className="section shell" aria-labelledby="strengths-title">
-        <div className="section-heading">
-          <p className="eyebrow">Strengths</p>
-          <h2 id="strengths-title">핵심 역량</h2>
+      <section id="projects" className="section shell" aria-labelledby="projects-title">
+        <div className="section-heading project-heading">
+          <div>
+            <p className="eyebrow">Selected work</p>
+            <h2 id="projects-title">대표 프로젝트</h2>
+          </div>
+          <p>
+            내부 정보와 원본 화면 대신, 확인 가능한 역할·판단·결과를 공개용
+            흐름으로 재구성했습니다.
+          </p>
         </div>
-        <div className="strength-grid">
-          {strengths.map((strength, index) => (
-            <article key={strength.title} className="strength-item">
-              <span aria-hidden="true">0{index + 1}</span>
-              <h3>{strength.title}</h3>
-              <p>{strength.description}</p>
+        <div className="project-list">
+          {projects.map((project, index) => (
+            <article key={project.slug} className="project-card">
+              <div>
+                <p className="project-number" aria-hidden="true">
+                  0{index + 1}
+                </p>
+                <p className="project-label">{project.label}</p>
+                <h3>
+                  <Link href={`/projects/${project.slug}`} prefetch={false}>
+                    {project.title} <span aria-hidden="true">→</span>
+                  </Link>
+                </h3>
+                <p>{project.summary}</p>
+                <p className="project-result">
+                  <strong>검증 결과</strong>
+                  {project.results[0]}
+                </p>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="experience" className="section section-tint">
+      <section id="experience" className="section section-tint" aria-labelledby="experience-title">
         <div className="shell">
           <div className="section-heading">
             <p className="eyebrow">Experience</p>
-            <h2>경력</h2>
+            <h2 id="experience-title">경력</h2>
           </div>
           <ol className="experience-list">
             {experiences.map((experience) => (
@@ -80,44 +99,38 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="projects" className="section shell" aria-labelledby="projects-title">
-        <div className="section-heading project-heading">
-          <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 id="projects-title">대표 프로젝트</h2>
-          </div>
-          <p>
-            내부 정보와 원본 화면 대신, 확인 가능한 역할·판단·결과를 공개용
-            흐름으로 재구성했습니다.
-          </p>
+      <section id="strengths" className="section shell" aria-labelledby="strengths-title">
+        <div className="section-heading">
+          <p className="eyebrow">Strengths</p>
+          <h2 id="strengths-title">핵심 역량</h2>
         </div>
-        <div className="project-list">
-          {projects.map((project, index) => (
-            <article key={project.slug} className="project-card">
-              <div>
-                <p className="project-number" aria-hidden="true">
-                  0{index + 1}
-                </p>
-                <p className="project-label">{project.label}</p>
-                <h3>{project.title}</h3>
-                <p>{project.summary}</p>
-              </div>
-              <Link href={`/projects/${project.slug}`} prefetch={false}>
-                {project.title} 자세히 보기 <span aria-hidden="true">→</span>
-              </Link>
+        <div className="strength-grid">
+          {strengths.map((strength, index) => (
+            <article key={strength.title} className="strength-item">
+              <span aria-hidden="true">0{index + 1}</span>
+              <h3>{strength.title}</h3>
+              <p>{strength.description}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="contact" className="section contact-section">
+      <section
+        id="contact"
+        className="section contact-section"
+        aria-labelledby="contact-title"
+      >
         <div className="shell contact-inner">
           <div>
             <p className="eyebrow">Contact</p>
-            <h2>함께 해결할 문제를 이야기해 주세요</h2>
+            <h2 id="contact-title">함께 해결할 문제를 이야기해 주세요</h2>
             <p>
               복잡한 운영 흐름과 데이터 제품을 더 명확한 사용자 경험으로 만드는
               팀을 찾고 있습니다.
+            </p>
+            <p className="contact-links">
+              <a href="mailto:callu_9ine@naver.com">callu_9ine@naver.com</a>
+              <a href="https://github.com/callu9">GitHub</a>
             </p>
           </div>
           <a className="button button-primary" href={contactHref}>

@@ -42,8 +42,11 @@ export const experiences = [
     role: "Frontend Engineer Intern",
     period: "2026.02–2026.03",
     summary:
-      "Mock API와 서버 상태 중심 구조로 문서·상태 관리 업무 흐름을 구현했습니다.",
-    contributions: [],
+      "Mock API와 서버 상태를 바탕으로 문서·상태 관리 흐름을 구현하고, 데이터 조회와 업무 액션의 책임을 분리했습니다.",
+    contributions: [
+      "테이블·검색·쿼리와 사용자 액션의 책임을 분리해 관리 화면을 구조화했습니다.",
+      "역할·문서 상태별 액션을 구분하고 다운로드 오류와 도메인 범위 모달 상태를 처리했습니다.",
+    ],
   },
   {
     company: "Lotte Innovate",
