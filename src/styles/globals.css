@@ -480,9 +480,43 @@ nav a:hover,
   display: block;
 }
 
+.case-back-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
 .case-hero h1 {
   max-width: 48rem;
   font-size: clamp(2.8rem, 7vw, 5rem);
+}
+
+.case-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 0;
+  max-width: 64rem;
+}
+
+.case-facts div {
+  border-top: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  padding-top: 0.75rem;
+}
+
+.case-facts dt {
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.case-facts dd {
+  margin: 0.35rem 0 0;
+  color: var(--text);
+  font-size: 0.92rem;
 }
 
 .case-content {
@@ -636,6 +670,10 @@ figcaption {
     max-width: 36rem;
   }
 
+  .case-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .experience-list > li {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -687,6 +725,10 @@ figcaption {
 
   .project-card > div {
     grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+
+  .case-facts {
+    grid-template-columns: 1fr;
   }
 
   .flow-list {

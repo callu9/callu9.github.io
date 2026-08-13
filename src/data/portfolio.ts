@@ -66,6 +66,7 @@ export type Project = {
   slug: string;
   title: string;
   label: string;
+  period: string;
   summary: string;
   overview: string[];
   problem: string[];
@@ -82,6 +83,7 @@ export const projects: Project[] = [
     slug: "work-support-platform",
     title: "업무지원 운영 플랫폼",
     label: "B2B 운영 · 전 과정 기여",
+    period: "2021.10–2025.04 경력 중",
     summary:
       "현장 접수의 병목을 발견하고 사용자 범위와 상태 공유 방식을 다시 정의한 운영 플랫폼입니다.",
     overview: [
@@ -131,6 +133,7 @@ export const projects: Project[] = [
     slug: "operations-dashboard",
     title: "통합 운영 대시보드",
     label: "문서·상태 관리 · Frontend",
+    period: "2026.02–2026.03",
     summary:
       "문서와 상태가 함께 변하는 관리 업무를 Mock API와 서버 상태 중심 UI로 구현했습니다.",
     overview: [
@@ -175,6 +178,7 @@ export const projects: Project[] = [
     slug: "collaborative-web-product",
     title: "협업형 웹 제품",
     label: "Next.js 팀 프로젝트 · 공통 기반",
+    period: "2025.09–2025.11",
     summary:
       "API 응답 검증, 공통 Modal, 서버 상태 테스트와 컴포넌트 리뷰 흐름에 기여한 팀 프로젝트입니다.",
     overview: [

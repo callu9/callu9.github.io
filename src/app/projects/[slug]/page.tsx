@@ -37,23 +37,68 @@ export default async function ProjectPage({ params }: Props) {
     <article className="case-study">
       <header className="case-hero">
         <div className="shell case-hero-inner">
+          <Link className="case-back-link" href="/#projects">
+            ← 대표 프로젝트
+          </Link>
           <div>
             <p className="eyebrow">Selected project</p>
             <p className="project-label">{project.label}</p>
             <h1>{project.title}</h1>
             <p className="case-summary">{project.summary}</p>
+            <dl className="case-facts">
+              <div>
+                <dt>기간</dt>
+                <dd>{project.period}</dd>
+              </div>
+              <div>
+                <dt>역할</dt>
+                <dd>{project.role[0]}</dd>
+              </div>
+              <div>
+                <dt>핵심 문제</dt>
+                <dd>{project.problem[0]}</dd>
+              </div>
+              <div>
+                <dt>검증 결과</dt>
+                <dd>{project.results[0]}</dd>
+              </div>
+            </dl>
           </div>
         </div>
       </header>
 
       <div className="shell case-content">
-        <CaseSection title="프로젝트 개요" items={project.overview} />
-        <CaseSection title="문제와 제약" items={project.problem} tone="lavender" />
-        <CaseSection title="역할과 기여 범위" items={project.role} />
+        <CaseSection
+          id="overview"
+          number="01"
+          title="프로젝트 개요"
+          items={project.overview}
+        />
+        <CaseSection
+          id="problem"
+          number="02"
+          title="문제와 제약"
+          items={project.problem}
+          tone="lavender"
+        />
+        <CaseSection
+          id="role"
+          number="03"
+          title="역할과 기여 범위"
+          items={project.role}
+        />
+
+        <CaseSection
+          id="results"
+          number="04"
+          title="검증 가능한 결과"
+          items={project.results}
+          tone="mint"
+        />
 
         <section className="case-section" aria-labelledby="decisions-title">
           <div className="case-section-title">
-            <p>04</p>
+            <p>05</p>
             <h2 id="decisions-title">핵심 결정과 선택 이유</h2>
           </div>
           <div className="decision-list">
@@ -68,7 +113,7 @@ export default async function ProjectPage({ params }: Props) {
 
         <section className="case-section case-visual" aria-labelledby="flow-title">
           <div className="case-section-title">
-            <p>05</p>
+            <p>06</p>
             <h2 id="flow-title">공개용 UI·흐름</h2>
           </div>
           <figure>
@@ -84,8 +129,9 @@ export default async function ProjectPage({ params }: Props) {
           </figure>
         </section>
 
-        <CaseSection title="검증 가능한 결과" items={project.results} tone="mint" />
         <CaseSection
+          id="omissions"
+          number="07"
           title="일반화하거나 생략한 범위"
           items={project.omissions}
           tone="coral"
@@ -111,27 +157,26 @@ export default async function ProjectPage({ params }: Props) {
 }
 
 function CaseSection({
+  id,
+  number,
   title,
   items,
   tone,
 }: {
+  id: string;
+  number: string;
   title: string;
   items: string[];
   tone?: "lavender" | "mint" | "coral";
 }) {
-  const number: Record<string, string> = {
-    "프로젝트 개요": "01",
-    "문제와 제약": "02",
-    "역할과 기여 범위": "03",
-    "검증 가능한 결과": "06",
-    "일반화하거나 생략한 범위": "07",
-  };
-
   return (
-    <section className={`case-section${tone ? ` tone-${tone}` : ""}`}>
+    <section
+      className={`case-section${tone ? ` tone-${tone}` : ""}`}
+      aria-labelledby={`${id}-title`}
+    >
       <div className="case-section-title">
-        <p>{number[title]}</p>
-        <h2>{title}</h2>
+        <p>{number}</p>
+        <h2 id={`${id}-title`}>{title}</h2>
       </div>
       <ul className="case-list">
         {items.map((item) => (
