@@ -8,15 +8,11 @@ export default function Home() {
         <div className="shell hero-grid">
           <div>
             <p className="eyebrow">Frontend-focused Product Engineer</p>
-            <h1 id="hero-title">이수정</h1>
-            <p className="hero-role">
-              프론트엔드 중심 프로덕트 엔지니어
-              <br />
-              현장 문제를 웹·디바이스·API 흐름으로 연결합니다.
-            </p>
+            <p className="hero-name">이수정</p>
+            <h1 id="hero-title">프론트엔드 중심 프로덕트 엔지니어</h1>
             <p className="hero-intro">
-              React·Next.js 기반 데이터 제품과 B2B 운영 시스템에서 현장 문제,
-              UI 상태, API 계약과 운영 흐름을 연결합니다.
+              React·Next.js 기반 데이터 제품과 B2B 운영 시스템에서 현장 문제를 UI
+              상태·API 계약·운영 흐름으로 연결합니다.
             </p>
             <div className="actions">
               <a className="button button-primary" href={contactHref}>
@@ -30,8 +26,8 @@ export default function Home() {
           <aside className="hero-note" aria-label="일하는 방식">
             <p className="hero-note-title">제가 선명하게 만드는 것</p>
             <ul>
-              <li>복잡한 업무의 상태와 다음 행동</li>
               <li>UI와 API가 공유하는 조건의 의미</li>
+              <li>재개 가능한 상태와 다음 행동</li>
               <li>재사용 가능한 UI와 검증 기준</li>
             </ul>
           </aside>

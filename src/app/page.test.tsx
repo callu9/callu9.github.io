@@ -10,13 +10,26 @@ describe("Home", () => {
     );
 
     expect(headings).toEqual([
-      "이수정",
+      "프론트엔드 중심 프로덕트 엔지니어",
       "핵심 역량",
       "경력",
       "대표 프로젝트",
       "함께 해결할 문제를 이야기해 주세요",
     ]);
     expect(screen.getAllByRole("link", { name: /면접 제안/ }).length).toBe(2);
+  });
+
+  it("presents the target role before the candidate name", () => {
+    const { container } = render(<Home />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "프론트엔드 중심 프로덕트 엔지니어",
+      }),
+    ).toBeVisible();
+    expect(screen.getByText("이수정")).not.toHaveRole("heading");
+    expect(container.querySelector(".hero br")).not.toBeInTheDocument();
   });
 
   it("links exactly three public project case studies", () => {
