@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import ProjectPage, { generateStaticParams } from "./page";
 
 const slugs = [
+  "frontend-contract-handoff",
   "work-support-platform",
-  "operations-dashboard",
-  "collaborative-web-product",
+  "recruitment-pipeline-board",
 ];
 
 describe("ProjectPage", () => {
@@ -63,5 +63,22 @@ describe("ProjectPage", () => {
       "일반화하거나 생략한 범위",
       "더 자세한 판단 과정이 궁금하신가요?",
     ]);
+  });
+
+  it("bounds the contract handoff to frontend and verified API artifacts", async () => {
+    render(await ProjectPage({ params: Promise.resolve({ slug: "frontend-contract-handoff" }) }));
+
+    const role = within(screen.getByRole("region", { name: "역할과 기여 범위" }));
+    expect(role.getByText(/MSW 응답으로 프론트엔드 검수 흐름/)).toBeVisible();
+    expect(role.getByText(/OpenAPI JSON.*TypeScript 타입/)).toBeVisible();
+    expect(screen.getByText(/실제 백엔드 연동.*운영 성과는 포함하지/)).toBeVisible();
+  });
+
+  it("shows the public board's server-state and rollback decisions", async () => {
+    render(await ProjectPage({ params: Promise.resolve({ slug: "recruitment-pipeline-board" }) }));
+
+    expect(screen.getByText(/TanStack Query.*서버 상태의 기준/)).toBeVisible();
+    expect(screen.getByText(/낙관적 갱신.*롤백/)).toBeVisible();
+    expect(screen.getByText(/실제 채용 운영.*포함하지/)).toBeVisible();
   });
 });

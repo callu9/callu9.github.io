@@ -76,20 +76,30 @@ describe("Home", () => {
   it("links exactly three public project case studies", () => {
     render(<Home />);
 
+    const projectLinks = screen.getByRole("region", { name: "대표 프로젝트" }).querySelectorAll(".project-card h3 a");
+    expect(Array.from(projectLinks, (link) => link.getAttribute("href"))).toEqual([
+      "/projects/frontend-contract-handoff",
+      "/projects/work-support-platform",
+      "/projects/recruitment-pipeline-board",
+    ]);
+    expect(screen.getByRole("link", { name: /검수 프론트엔드와 API 계약 인수/ })).toBeVisible();
     expect(screen.getAllByRole("link", { name: /업무지원 운영 플랫폼/ })).toHaveLength(1);
     expect(screen.getByRole("link", { name: /업무지원 운영 플랫폼/ })).toHaveAttribute(
       "href",
       "/projects/work-support-platform",
     );
-    expect(screen.getAllByRole("link", { name: /통합 운영 대시보드/ })).toHaveLength(1);
-    expect(screen.getByRole("link", { name: /통합 운영 대시보드/ })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /채용 단계 관리 보드/ })).toHaveAttribute(
       "href",
-      "/projects/operations-dashboard",
+      "/projects/recruitment-pipeline-board",
     );
-    expect(screen.getAllByRole("link", { name: /협업형 웹 제품/ })).toHaveLength(1);
-    expect(screen.getByRole("link", { name: /협업형 웹 제품/ })).toHaveAttribute(
-      "href",
-      "/projects/collaborative-web-product",
-    );
+  });
+
+  it("describes recent work as integration and test design, not completed release", () => {
+    render(<Home />);
+
+    const experience = screen.getByRole("heading", { name: "Oprimed" }).closest("li");
+    expect(experience).toHaveTextContent(/검토용 목업 화면군.*주 개발 환경에 통합/);
+    expect(experience).toHaveTextContent(/E2E 검증 절차.*설계/);
+    expect(experience).toHaveTextContent(/출시 전.*평가 기준/);
   });
 });

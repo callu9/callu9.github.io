@@ -6,9 +6,9 @@ describe("SEO route metadata", () => {
   it("publishes only the home and approved project URLs in the sitemap", () => {
     expect(sitemap().map(({ url }) => url)).toEqual([
       "https://callu9.github.io/",
+      "https://callu9.github.io/projects/frontend-contract-handoff/",
       "https://callu9.github.io/projects/work-support-platform/",
-      "https://callu9.github.io/projects/operations-dashboard/",
-      "https://callu9.github.io/projects/collaborative-web-product/",
+      "https://callu9.github.io/projects/recruitment-pipeline-board/",
     ]);
   });
 
