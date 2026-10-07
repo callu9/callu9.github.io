@@ -14,7 +14,7 @@ describe("single-page portfolio", () => {
       expect(article.querySelector("details > summary")).toHaveTextContent("구현 자세히 보기");
       expect(article.querySelector("details")).not.toHaveAttribute("open");
       expect(article.querySelector(".project-copy details")).toBeNull();
-      expect(article.querySelector(".project-body + details .scope-note")).not.toBeNull();
+      expect(article.querySelectorAll(".project-body + details .scope-note")).toHaveLength(slug === "recruitment-pipeline-board" ? 1 : 0);
     }
     expect(container.querySelector('a[href^="/projects/"]')).toBeNull();
     expect(screen.queryByRole("heading", { name: "핵심 역량" })).not.toBeInTheDocument();
@@ -54,10 +54,12 @@ describe("single-page portfolio", () => {
     }
   });
 
-  it("preserves scope and date qualifications for work cases", () => {
+  it("omits internal work scope notes while preserving dates and the board scope", () => {
     render(<Home />);
     expect(screen.getAllByText(/관련 재직 기간/)).toHaveLength(2);
-    expect(screen.getByText(/실제 백엔드 연동과 운영 성과는 포함하지/)).toBeInTheDocument();
+    expect(screen.queryByText(/실제 백엔드 연동과 운영 성과는 포함하지/)).not.toBeInTheDocument();
+    expect(screen.queryByText("회사·고객 정보와 내부 화면·코드는 공개하지 않습니다.")).not.toBeInTheDocument();
+    expect(screen.getByText(/MSW·localStorage 기반 데모입니다/)).toBeInTheDocument();
     expect(screen.getByText(/운영 화면 자동 갱신/)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /면접 제안/ })).toHaveLength(2);
   });
