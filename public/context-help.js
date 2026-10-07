@@ -5,9 +5,10 @@
     const items = [...panel.querySelectorAll("[data-help-target]")];
     let selected = null;
     let preview = null;
+    let focused = null;
 
     function highlight() {
-      const active = preview ?? selected ?? items[0]?.dataset.helpTarget;
+      const active = preview ?? focused ?? selected ?? items[0]?.dataset.helpTarget;
       for (const target of mock.querySelectorAll("[data-help-id]")) {
         target.classList.toggle("help-target-active", !panel.hidden && target.dataset.helpId === active);
       }
@@ -19,7 +20,7 @@
     function close() {
       panel.hidden = true;
       trigger.setAttribute("aria-expanded", "false");
-      selected = preview = null;
+      selected = preview = focused = null;
       highlight();
       document.removeEventListener("keydown", escape);
       trigger.focus({ preventScroll: true });
@@ -41,13 +42,15 @@
     for (const item of items) {
       for (const event of ["mouseenter", "focus"]) {
         item.addEventListener(event, () => {
-          preview = item.dataset.helpTarget;
+          if (event === "mouseenter") preview = item.dataset.helpTarget;
+          else focused = item.dataset.helpTarget;
           highlight();
         });
       }
       for (const event of ["mouseleave", "blur"]) {
         item.addEventListener(event, () => {
-          preview = null;
+          if (event === "mouseleave") preview = null;
+          else focused = null;
           highlight();
         });
       }

@@ -62,6 +62,21 @@ describe("mockup contextual help", () => {
     expect(screen.queryByRole("complementary")).toBeNull();
   });
 
+  it("restores the keyboard-focused target after a hover preview ends", () => {
+    const { container } = renderHelp();
+    const trigger = screen.getByRole("button", { name: "도움말" });
+    fireEvent.click(trigger);
+    const inputHelp = screen.getByRole("button", { name: /입력 조건 확인/ });
+    const responseHelp = screen.getByRole("button", { name: /응답과 오류 확인/ });
+    const response = container.querySelector('[data-help-id="review-response"]')!;
+    responseHelp.focus();
+    fireEvent.mouseEnter(inputHelp);
+    fireEvent.mouseLeave(inputHelp);
+    expect(responseHelp).toHaveFocus();
+    expect(response).toHaveClass("help-target-active");
+    fireEvent.click(trigger);
+  });
+
   it.each([false, true])("scrolls off-screen targets respecting reduced motion (%s)", (reduced) => {
     const { container } = renderHelp();
     const trigger = screen.getByRole("button", { name: "도움말" });
