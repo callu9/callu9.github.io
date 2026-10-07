@@ -2,10 +2,11 @@ import type { ReactElement, ReactNode } from "react";
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import RootLayout, { metadata } from "@/app/layout";
+import Home from "@/app/page";
 
 describe("RootLayout", () => {
   it("provides a skip link to main content", () => {
-    const layout = RootLayout({ children: <p>페이지 내용</p> });
+    const layout = RootLayout({ children: <Home /> });
     const body = layout.props.children as ReactElement<{ children: ReactNode }>;
     render(<>{body.props.children}</>);
 
@@ -16,29 +17,33 @@ describe("RootLayout", () => {
   });
 
   it("matches global navigation to the home reading order", () => {
-    const layout = RootLayout({ children: <p>페이지 내용</p> });
+    const layout = RootLayout({ children: <Home /> });
     const body = layout.props.children as ReactElement<{ children: ReactNode }>;
-    render(<>{body.props.children}</>);
+    const { container } = render(<>{body.props.children}</>);
 
     const nav = screen.getByRole("navigation", { name: "주요 메뉴" });
     expect(within(nav).getAllByRole("link").map((link) => link.textContent)).toEqual([
-      "프로젝트",
-      "경력",
-      "역량",
-      "연락",
+      "Projects",
+      "Experience",
+      "Education",
+      "Contact",
     ]);
-    expect(within(nav).getByRole("link", { name: "연락" })).toHaveAttribute(
+    expect(within(nav).getByRole("link", { name: "Contact" })).toHaveAttribute(
       "href",
       "/#contact",
     );
+    for (const link of within(nav).getAllByRole("link")) {
+      expect(container.querySelector(link.getAttribute("href")!.slice(1))).not.toBeNull();
+    }
   });
 
-  it("puts the target role first in share metadata", () => {
+  it("identifies the product engineer in share metadata", () => {
     expect(metadata.title).toMatchObject({
-      default: "Frontend-focused Product Engineer | 이수정",
+      default: "Product Engineer | 이수정",
     });
     expect(metadata.openGraph).toMatchObject({
-      title: "Frontend-focused Product Engineer | 이수정",
+      title: "Product Engineer | 이수정",
     });
+    expect(metadata.description).toContain("프로덕트 엔지니어 이수정");
   });
 });

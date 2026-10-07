@@ -11,9 +11,4 @@ describe("responsive typography CSS", () => {
     expect(bodyRule).not.toContain("overflow-wrap: anywhere");
   });
 
-  it("removes odd-card borders after the strengths grid becomes one column", () => {
-    expect(css).toMatch(
-      /@media \(max-width: 40rem\)[\s\S]*?\.strength-item:nth-child\(odd\),[\s\S]*?border-right: 0/,
-    );
-  });
 });
