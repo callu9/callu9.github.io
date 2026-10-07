@@ -171,7 +171,7 @@ type Project = {
   image?: { src: string; alt: string; caption: string };
   links?: { label: string; href: string }[];
   details: { title: string; description: string }[];
-  scope: string;
+  scope?: string;
 };
 
 export const projects: Project[] = [
@@ -194,7 +194,6 @@ export const projects: Project[] = [
         description: "명세만 바뀌고 이전 타입이 남는 상황을 확인할 수 있도록, 생성 산출물의 최신 상태 검사와 변경 검증 절차를 마련했습니다.",
       },
     ],
-    scope: "프론트엔드 구현과 연동 기준 정리까지의 사례입니다. 실제 백엔드 연동과 운영 성과는 포함하지 않습니다.",
   },
   {
     slug: "work-support-platform",
@@ -215,7 +214,6 @@ export const projects: Project[] = [
         description: "서비스 배포 후 운영 이슈에 대응했습니다. 운영자가 새로고침하지 않아도 상황을 확인하도록 운영 화면 자동 갱신을 적용했습니다.",
       },
     ],
-    scope: "회사·고객 정보와 내부 화면·코드는 공개하지 않습니다.",
   },
   {
     slug: "recruitment-pipeline-board",

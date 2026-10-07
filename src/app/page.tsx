@@ -9,7 +9,7 @@ export default function Home() {
         <p className="eyebrow">Product Engineer · React / Next.js</p>
         <h1 id="hero-title">복잡한 업무 흐름을 구조화하는<br /><span>Product Engineer</span></h1>
         <p className="hero-intro">
-          분석 제품의 검수 흐름과 B2B 운영 시스템을 개발합니다.<br />
+          분석 제품의 검수 흐름과 B2B 운영 시스템을 개발합니다.<br />{" "}
           현장의 문제를 파악하고, 기능 기획부터 구현·배포·운영까지 경험했습니다.
         </p>
         <div className="actions">
@@ -53,7 +53,7 @@ export default function Home() {
                 <summary>구현 자세히 보기</summary>
                 <div className="project-detail">
                   {project.details.map(detail => <div key={detail.title}><h4>{detail.title}</h4><p>{detail.description}</p></div>)}
-                  <p className="scope-note">{project.scope}</p>
+                  {project.scope && <p className="scope-note">{project.scope}</p>}
                 </div>
               </details>
             </article>
